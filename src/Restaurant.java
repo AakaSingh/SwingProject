@@ -15,7 +15,9 @@ public class Restaurant {
                 JFrame frame = new MainFrame();
             }
         });
-        this.prepareBurger();
+
+        if(fridge.size() == 0)
+            this.prepareBurger();
 
     }
 

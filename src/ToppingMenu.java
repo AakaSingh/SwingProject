@@ -15,6 +15,7 @@ public ToppingMenu(Burger burger)
     super("Toppings Menu");
     JPanel top = new Home("images/back.jpg");
     toppings = burger.getToppings();
+    selectedToppings.clear();
     top.setLayout(null);
 
     JButton[] toppingButtons = new JButton[toppings.size()];
@@ -75,7 +76,7 @@ public ToppingMenu(Burger burger)
                 String name  = JOptionPane.showInputDialog("Enter Name");
                 String contact = JOptionPane.showInputDialog("Enter Contact Number");
                 new BillPage(burger, selectedToppings, name, contact );
-                setVisible(false);
+                dispose();
             }
         }
     });

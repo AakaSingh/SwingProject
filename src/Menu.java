@@ -53,7 +53,7 @@ public class Menu extends JFrame {
         burgers[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                dispose();
                 new ToppingMenu(burgerList.get(0));
             }
         });
@@ -61,7 +61,7 @@ public class Menu extends JFrame {
         burgers[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                dispose();
                 new ToppingMenu(burgerList.get(1));
             }
         });
@@ -69,7 +69,7 @@ public class Menu extends JFrame {
         burgers[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                dispose();
                 new ToppingMenu(burgerList.get(2));
             }
         });

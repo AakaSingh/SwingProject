@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class BillPage extends JFrame {
@@ -8,7 +10,7 @@ public class BillPage extends JFrame {
 public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String contact)
 {
     super("BILL");
-
+    Bill billDb = new Bill(burger);
     JPanel bill = new JPanel();
 
     JLabel info = new JLabel("  Name: " + name + "                  Contact: "+ contact);
@@ -73,9 +75,14 @@ public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String 
     spt1.setBounds(20,height, 250, 10);
 
     height+=10;
-    Double total1 = calculateTotal(burger, toppings);
+    Double total1 = calculateTotal(burger, toppings, billDb);
     Double tax = total1 * 0.15;
+    billDb.setTax(tax);
+
     Double netTotal = total1 + tax;
+    billDb.setFinalAmount(netTotal);
+
+    Controller.saveTransaction(billDb);
 
     JLabel total = new JLabel("Amount :");
     total.setBounds(20, height, 100, 30 );
@@ -94,6 +101,18 @@ public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String 
     JLabel finalAmount = new JLabel("$"+String.format("%.2f",netTotal));
     finalAmount.setBounds(220, height, 100, 30);
 
+    JButton back = new JButton("Back To Restaurant");
+    back.setBackground(Color.BLACK);
+    back.setForeground(Color.gray);
+    back.setFont(new Font("Arial Bold", Font.BOLD, 15));
+
+    back.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
+            new Restaurant();
+        }
+    });
 
     bill.setSize(300,height+100);
 
@@ -110,21 +129,26 @@ public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String 
     bill.add(finalTotal);
     bill.add(finalAmount);
     add(bill,BorderLayout.CENTER);
-    setSize(300,height+100);
+    add(back,BorderLayout.SOUTH);
+    setSize(300,height+150);
     setVisible(true);
 }
 
-    private Double calculateTotal(Burger burger, ArrayList<Topping> toppings)
+    private Double calculateTotal(Burger burger, ArrayList<Topping> toppings, Bill billDb)
     {
         Double temp = 0.0;
-        temp += burger.getPrice();
+        Double toppingPrice = 0.0;
+        temp = burger.getPrice();
 
         for(Topping topping : toppings)
         {
-            temp += topping.getPrice();
+            toppingPrice += topping.getPrice();
         }
 
-        return temp;
+        billDb.setToppingTotal(toppingPrice);
+        billDb.setNoOfToppings(toppings.size());
+
+        return temp + toppingPrice;
     }
 
 }
