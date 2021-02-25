@@ -10,6 +10,7 @@ public class Restaurant {
 
     public Restaurant()
     {
+        Controller.connect();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new MainFrame();

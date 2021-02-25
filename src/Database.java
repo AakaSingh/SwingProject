@@ -1,14 +1,14 @@
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Database {
 
     private Connection conn;
+    private List<Bill> orders;
 
     public void connect() throws Exception {
 
@@ -49,5 +49,34 @@ public class Database {
 
         insertStatement.executeUpdate();
 
+    }
+
+    public List<Bill> getOrders() throws SQLException
+    {
+        orders = new LinkedList<>();
+        try {
+            String sql = "SELECT * FROM burgertransactions";
+            Statement selectStatement = conn.createStatement();
+
+            ResultSet res = selectStatement.executeQuery(sql);
+            while(res.next()){
+
+                String burgerName =  res.getString("burgerName");
+                double burgerPrice  =  res.getDouble("burgerPrice");
+                int noOFToppings =  res.getInt("noOFToppings");
+                double toppingTotal =  res.getDouble("toppingPrice");
+                double tax =  res.getDouble("tax");
+                double finalTotal =  res.getDouble("totalPrice");
+
+                Bill b = new Bill(burgerName,burgerPrice,noOFToppings,toppingTotal,tax,finalTotal);
+                orders.add(b);
+
+            }
+
+        }
+        catch (SQLException throwable) {
+            throw throwable;
+        }
+        return orders;
     }
 }

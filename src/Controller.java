@@ -1,20 +1,56 @@
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Controller {
 
-    public static void saveTransaction(Bill bill)
+    private static Database db= new Database();
+
+    public static void connect()
     {
-        Database db = new Database();
         try {
             db.connect();
-            db.save(bill);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void disconnect()
+    {
+        try {
             db.disconnect();
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+    }
+    public static void saveTransaction(Bill bill)
+    {
+        try
+        {
+            db.save(bill);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static List<Bill> getOrders()
+    {
+        try
+        {
+            return db.getOrders();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
 }

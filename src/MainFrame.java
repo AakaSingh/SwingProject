@@ -68,12 +68,31 @@ public class MainFrame extends JFrame {
             }
         });
 
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu view = new JMenu("View");
+        JMenuItem orders = new JMenuItem("All Orders");
+        view.add(orders);
+        menuBar.add(view);
+
+        orders.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrdersPage orderPage = new OrdersPage();
+                orderPage.setData(Controller.getOrders());
+                orderPage.setSize(600,400);
+                orderPage.setVisible(true);
+            }
+        });
+
+
         home.setLayout(null);
         greet.setBounds(100,20, 600, 65);
         home.add(greet);
 
         moveToMenu.setBounds(218,350, 150, 80);
         home.add(moveToMenu);
+        setJMenuBar(menuBar);
         add(home, BorderLayout.CENTER);
 
 
