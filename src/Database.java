@@ -22,7 +22,7 @@ public class Database {
         }
 
         String connectionUrl = "jdbc:mysql://localhost:3306/sys?allowPublicKeyRetrieval=true&useSSL=false";
-        conn = DriverManager.getConnection(connectionUrl, "root", "handsomeman1");
+        conn = DriverManager.getConnection(connectionUrl, "root", "password");
     }
 
     public  void disconnect(){
