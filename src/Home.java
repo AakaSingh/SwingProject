@@ -14,7 +14,7 @@ public class Home extends JPanel {
         }
         catch(Exception e)
         {
-
+            System.out.println(e.getMessage());
         }
     }
 

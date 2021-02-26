@@ -72,8 +72,22 @@ public class MainFrame extends JFrame {
 
         JMenu view = new JMenu("View");
         JMenuItem orders = new JMenuItem("All Orders");
+
+        JMenu tools = new JMenu("Tools");
+        JMenuItem fontCol = new JMenuItem("Font Color");
+        tools.add(fontCol);
         view.add(orders);
         menuBar.add(view);
+        menuBar.add(tools);
+
+        fontCol.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color initialColor=Color.YELLOW;
+                Color color=JColorChooser.showDialog(home,"Select a color",initialColor);
+                greet.setForeground(color);
+            }
+        });
 
         orders.addActionListener(new ActionListener() {
             @Override

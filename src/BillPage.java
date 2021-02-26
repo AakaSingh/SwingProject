@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class BillPage extends JFrame {
 
-public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String contact)
+public BillPage(Burger burger, ArrayList<Topping> toppings, String name)
 {
     super("BILL");
     Bill billDb = new Bill(burger);
     JPanel bill = new JPanel();
 
-    JLabel info = new JLabel("  Name: " + name + "                  Contact: "+ contact);
+    JLabel info = new JLabel("  Name: " + name);
 
     add(info, BorderLayout.NORTH);
     bill.setLayout(null);
@@ -101,16 +101,33 @@ public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String 
     JLabel finalAmount = new JLabel("$"+String.format("%.2f",netTotal));
     finalAmount.setBounds(220, height, 100, 30);
 
+    JPanel footPan = new JPanel();
+    footPan.setLayout(new FlowLayout());
     JButton back = new JButton("Back To Restaurant");
     back.setBackground(Color.BLACK);
     back.setForeground(Color.gray);
     back.setFont(new Font("Arial Bold", Font.BOLD, 15));
+
+    JButton closeApp = new JButton("Exit");
+    closeApp.setBackground(Color.BLACK);
+    closeApp.setForeground(Color.gray);
+    closeApp.setFont(new Font("Arial Bold", Font.BOLD, 15));
+
+    footPan.add(back);
+    footPan.add(closeApp);
 
     back.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
             new Restaurant();
+        }
+    });
+
+    closeApp.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            dispose();
         }
     });
 
@@ -129,7 +146,7 @@ public BillPage(Burger burger, ArrayList<Topping> toppings, String name, String 
     bill.add(finalTotal);
     bill.add(finalAmount);
     add(bill,BorderLayout.CENTER);
-    add(back,BorderLayout.SOUTH);
+    add(footPan,BorderLayout.SOUTH);
     setSize(300,height+150);
     setVisible(true);
 }

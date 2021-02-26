@@ -74,8 +74,7 @@ public ToppingMenu(Burger burger)
                     }
                 }
                 String name  = JOptionPane.showInputDialog("Enter Name");
-                String contact = JOptionPane.showInputDialog("Enter Contact Number");
-                new BillPage(burger, selectedToppings, name, contact );
+                new BillPage(burger, selectedToppings, name);
                 dispose();
             }
         }
